@@ -1,0 +1,104 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="LabelMatchingSvcPartAvalonia.SettingsWindow"
+        Title="System Configuration" Width="400" Height="380"
+        WindowStartupLocation="CenterOwner"
+        CanResize="False"
+        ExtendClientAreaToDecorationsHint="False"
+        RequestedThemeVariant="Light" 
+        Background="White">
+
+    <Window.Styles>
+        <Style Selector="TextBlock">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="Foreground" Value="#231F20"/>
+        </Style>
+
+        <Style Selector="TextBox">
+            <Setter Property="CornerRadius" Value="3"/>
+        </Style>
+        
+        <Style Selector="TextBox:focus /template/ Border#PART_BorderElement">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#00A0E4"/>
+            <Setter Property="BorderThickness" Value="2"/>
+        </Style>
+        <Style Selector="TextBox:focus">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="CaretBrush" Value="Black"/>
+        </Style>
+
+        <Style Selector="TextBox:pointerover /template/ Border#PART_BorderElement">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#00A0E4"/>
+        </Style>
+        <Style Selector="TextBox:pointerover">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="CaretBrush" Value="Black"/>
+        </Style>
+
+        <Style Selector="Button.primary">
+            <Setter Property="Background" Value="#00A0E4"/> <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="CornerRadius" Value="4"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/> 
+        </Style>
+
+        <Style Selector="Button.primary:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#008BC7"/> <Setter Property="Foreground" Value="White"/>
+        </Style>
+
+        <Style Selector="Button.primary:pressed /template/ ContentPresenter">
+            <Setter Property="Background" Value="#005F87"/> <Setter Property="Foreground" Value="White"/>
+        </Style>
+    </Window.Styles>
+
+    <Grid>
+        <StackPanel x:Name="pnlLogin" Spacing="15" Margin="30" VerticalAlignment="Center">
+            <Border Width="60" Height="60" CornerRadius="30" Background="#F0F0F0" HorizontalAlignment="Center">
+                <TextBlock Text="🔒" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </Border>
+            
+            <TextBlock Text="ADMIN ACCESS" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center"/>
+            
+            <StackPanel Spacing="5">
+                <TextBlock Text="Username" FontWeight="SemiBold"/>
+                <TextBox x:Name="txtUser" Watermark="Enter Username" Height="35" VerticalContentAlignment="Center"/>
+            </StackPanel>
+            
+            <StackPanel Spacing="5">
+                <TextBlock Text="Password" FontWeight="SemiBold"/>
+                <TextBox x:Name="txtPass" PasswordChar="•" Watermark="Enter Password" Height="35" VerticalContentAlignment="Center"/>
+            </StackPanel>
+
+            <Button Content="LOGIN" Click="OnLoginClick" Classes="primary"
+                    Margin="0,10,0,0" HorizontalAlignment="Stretch" Height="40"/>
+            
+            <TextBlock x:Name="lblLoginMsg" Foreground="Red" HorizontalAlignment="Center" FontSize="12"/>
+        </StackPanel>
+
+        <StackPanel x:Name="pnlConfig" Spacing="15" Margin="30" VerticalAlignment="Center" IsVisible="False">
+            <Border Width="60" Height="60" CornerRadius="30" Background="#F0F0F0" HorizontalAlignment="Center">
+                <TextBlock Text="⚙" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#00A0E4"/>
+            </Border>
+            
+            <TextBlock Text="CONFIGURATION" FontSize="18" FontWeight="Bold" Foreground="#00A0E4" HorizontalAlignment="Center"/>
+
+            <StackPanel Spacing="5">
+                <TextBlock Text="Line Name (Tampil di Header)" FontWeight="SemiBold"/>
+                <TextBox x:Name="txtLineName" Height="35" VerticalContentAlignment="Center"/>
+            </StackPanel>
+
+            <StackPanel Spacing="5">
+                <TextBlock Text="Database Connection String" FontWeight="SemiBold"/>
+                <TextBox x:Name="txtDbConnection" Height="80" AcceptsReturn="True" TextWrapping="Wrap" VerticalContentAlignment="Top"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Spacing="10" HorizontalAlignment="Right" Margin="0,10,0,0">
+                <Button Content="Cancel" Click="OnCancelClick" Background="#DDD" Foreground="Black"/>
+                <Button Content="SAVE SETTINGS" Click="OnSaveClick" Background="#6CC24A" Foreground="White" FontWeight="Bold"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>
