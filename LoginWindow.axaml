@@ -1,0 +1,84 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="LabelMatchingSvcPartAvalonia.LoginWindow"
+        Title="Login System" Height="450" Width="380"
+        WindowStartupLocation="CenterScreen"
+        CanResize="False"
+        RequestedThemeVariant="Light"
+        Background="#F5F5F5">
+
+    <Window.Styles>
+        <Style Selector="TextBlock">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="Foreground" Value="#231F20"/>
+        </Style>
+
+        <Style Selector="TextBox">
+            <Setter Property="CornerRadius" Value="3"/>
+        </Style>
+        
+        <Style Selector="TextBox:focus /template/ Border#PART_BorderElement">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#00A0E4"/>
+            <Setter Property="BorderThickness" Value="2"/>
+        </Style>
+        <Style Selector="TextBox:focus">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="CaretBrush" Value="Black"/>
+        </Style>
+
+        <Style Selector="TextBox:pointerover /template/ Border#PART_BorderElement">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#00A0E4"/>
+        </Style>
+        <Style Selector="TextBox:pointerover">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="CaretBrush" Value="Black"/>
+        </Style>
+
+        <Style Selector="Button.primary">
+            <Setter Property="Background" Value="#00A0E4"/> <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="CornerRadius" Value="4"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/> 
+        </Style>
+
+        <Style Selector="Button.primary:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#008BC7"/> <Setter Property="Foreground" Value="White"/>
+        </Style>
+
+        <Style Selector="Button.primary:pressed /template/ ContentPresenter">
+            <Setter Property="Background" Value="#005F87"/> <Setter Property="Foreground" Value="White"/>
+        </Style>
+    </Window.Styles>
+
+    <Grid RowDefinitions="Auto, *, Auto">
+        <Border Grid.Row="0" Background="#00A0E4" Height="120" CornerRadius="0,0,20,20">
+            <StackPanel VerticalAlignment="Center" Spacing="5">
+                <TextBlock Text="SVC-LBMC" Foreground="White" FontSize="28" FontWeight="Bold" HorizontalAlignment="Center"/>
+                <TextBlock Text="Service Part Label Matching" Foreground="White" FontSize="14" HorizontalAlignment="Center" Opacity="0.8"/>
+            </StackPanel>
+        </Border>
+
+        <StackPanel Grid.Row="1" Margin="35,30,35,0" Spacing="15">
+            <StackPanel Spacing="5">
+                <TextBlock Text="Username" FontWeight="SemiBold" Foreground="#333"/>
+                <TextBox x:Name="txtUser" Watermark="Enter Username" Height="40" VerticalContentAlignment="Center"/>
+            </StackPanel>
+
+            <StackPanel Spacing="5">
+                <TextBlock Text="Password" FontWeight="SemiBold" Foreground="#333"/>
+                <TextBox x:Name="txtPass" PasswordChar="•" Watermark="Enter Password" Height="40" VerticalContentAlignment="Center" KeyDown="OnPassKeyDown"/>
+            </StackPanel>
+
+            <Button Content="LOGIN" Click="OnLoginClick" 
+                    Background="#00A0E4" Foreground="White" FontWeight="Bold"
+                    HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Height="45" Margin="0,15,0,0"/>
+            
+            <TextBlock x:Name="lblMsg" Foreground="#E04F5F" HorizontalAlignment="Center" FontSize="12" TextWrapping="Wrap" TextAlignment="Center"/>
+        </StackPanel>
+
+        <TextBlock Grid.Row="2" Text="DIID - MSI © 2026" Foreground="#BBB" FontSize="10" HorizontalAlignment="Center" Margin="10"/>
+    </Grid>
+</Window>
