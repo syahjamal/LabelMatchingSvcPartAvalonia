@@ -28,6 +28,8 @@ namespace LabelMatchingSvcPartAvalonia
             InitializeComponent();
 
             SetupAwal();
+            lblOperatorName.Text = UserSession.FullName;
+            lblLineName.Text = UserSession.LineName;
             LoadSystemConfig();
 
             this.KeyDown += OnWindowKeyDown;
