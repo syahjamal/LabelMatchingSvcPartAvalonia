@@ -3,9 +3,9 @@ using Newtonsoft.Json;
 using System;
 using System.Data;
 using System.IO;
-using System.Security.Cryptography; // Diperlukan untuk MD5
-using System.Text;                // Diperlukan untuk Encoding
-using Oracle.ManagedDataAccess.Client; // Pastikan NuGet Oracle.ManagedDataAccess.Core terpasang
+using System.Security.Cryptography;
+using System.Text;
+using Oracle.ManagedDataAccess.Client;
 
 namespace LabelMatchingSvcPartAvalonia.Controllers
 {
@@ -62,14 +62,11 @@ namespace LabelMatchingSvcPartAvalonia.Controllers
         }
 
         // Logika verifikasi Login ke Database Oracle
-        public bool TryLogin(string username, string password, out string message)
+        public bool TryLogin(string username, out string message)
         {
             message = "";
             try
             {
-                // Konversi password input menjadi MD5 Hash
-                string hashedPassword = GetMd5Hash(password);
-
                 using (var conn = new OracleConnection(CurrentConfig.DbConnectionString))
                 {
                     conn.Open();
@@ -81,14 +78,12 @@ namespace LabelMatchingSvcPartAvalonia.Controllers
                         JOIN TBL_USER_AUTHORITY A ON U.USER_ID = A.USER_ID
                         JOIN TBL_MASTER_PROGRAM P ON A.PROG_CODE = P.PROG_CODE
                         WHERE U.USERNAME = :uname 
-                          AND U.PASSWORD = :pass
                           AND U.IS_ACTIVE = 'Y'
                           AND A.PROG_CODE = 'SVC-LBMC'";
 
                     using (var cmd = new OracleCommand(query, conn))
                     {
                         cmd.Parameters.Add(new OracleParameter("uname", username));
-                        cmd.Parameters.Add(new OracleParameter("pass", hashedPassword));
 
                         using (var reader = cmd.ExecuteReader())
                         {
@@ -116,7 +111,7 @@ namespace LabelMatchingSvcPartAvalonia.Controllers
             catch (Exception ex)
             {
                 // Fallback untuk akun admin default jika database tidak terjangkau
-                if (username == "admin" && password == "daikin123")
+                if (username == "admin")
                 {
                     UserSession.UserId = "001";
                     UserSession.FullName = "System Administrator (Offline)";

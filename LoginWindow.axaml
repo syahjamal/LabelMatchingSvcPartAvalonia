@@ -62,21 +62,18 @@
         </Border>
 
         <StackPanel Grid.Row="1" Margin="35,30,35,0" Spacing="15">
+            
             <StackPanel Spacing="5">
                 <TextBlock Text="Username" FontWeight="SemiBold" Foreground="#333"/>
-                <TextBox x:Name="txtUser" Watermark="Enter Username" Height="40" VerticalContentAlignment="Center"/>
-            </StackPanel>
-
-            <StackPanel Spacing="5">
-                <TextBlock Text="Password" FontWeight="SemiBold" Foreground="#333"/>
-                <TextBox x:Name="txtPass" PasswordChar="•" Watermark="Enter Password" Height="40" VerticalContentAlignment="Center" KeyDown="OnPassKeyDown"/>
+                <TextBox x:Name="txtUser" Watermark="Enter Username" Height="40" 
+                         VerticalContentAlignment="Center" KeyDown="OnUserKeyDown"/>
             </StackPanel>
 
             <Button Content="LOGIN" Click="OnLoginClick" 
                     Background="#00A0E4" Foreground="White" FontWeight="Bold"
-                    HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Height="45" Margin="0,15,0,0"/>
+                    HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Height="35" Margin="0,15,0,0"/>
             
-            <TextBlock x:Name="lblMsg" Foreground="#E04F5F" HorizontalAlignment="Center" FontSize="12" TextWrapping="Wrap" TextAlignment="Center"/>
+            <TextBlock x:Name="lblMsg" Foreground="#E04F5F" HorizontalAlignment="Stretch" FontSize="12" TextWrapping="Wrap" TextAlignment="Center"/>
         </StackPanel>
 
         <TextBlock Grid.Row="2" Text="DIID - MSI © 2026" Foreground="#BBB" FontSize="10" HorizontalAlignment="Center" Margin="10"/>

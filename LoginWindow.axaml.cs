@@ -13,28 +13,63 @@ namespace LabelMatchingSvcPartAvalonia
         public LoginWindow()
         {
             InitializeComponent();
-            txtUser.Focus();
+
+            // Fokus otomatis ke kotak input saat window terbuka
+            this.Opened += (s, e) => txtUser.Focus();
         }
 
         private void OnLoginClick(object? sender, RoutedEventArgs e) => DoLogin();
 
-        private void OnPassKeyDown(object? sender, KeyEventArgs e)
+        private void OnUserKeyDown(object? sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Enter) DoLogin();
+            // Jika scanner QR mengirimkan tombol Enter
+            if (e.Key == Key.Enter)
+            {
+                ParseUsername();
+                DoLogin(); // Langsung proses login
+            }
+        }
+
+        // Ekstrak 5 Digit ID Terakhir dari hasil Scan
+        private void ParseUsername()
+        {
+            string rawUser = txtUser.Text ?? "";
+
+            if (rawUser.Contains("|"))
+            {
+                string[] parts = rawUser.Split('|');
+                string idPart = parts[0];
+
+                if (idPart.Length >= 5)
+                {
+                    txtUser.Text = idPart.Substring(idPart.Length - 5);
+                }
+                else
+                {
+                    txtUser.Text = idPart;
+                }
+
+                txtUser.CaretIndex = txtUser.Text.Length;
+            }
         }
 
         private void DoLogin()
         {
-            string user = txtUser.Text ?? "";
-            string pass = txtPass.Text ?? "";
+            ParseUsername(); // Pastikan data sudah terekstrak
 
-            if (string.IsNullOrEmpty(user) || string.IsNullOrEmpty(pass))
+            string user = txtUser.Text ?? "";
+
+            // Karena password dihilangkan, kita kirimkan string kosong 
+            // atau bisa juga mengirim password default jika diatur di DB
+            string pass = "";
+
+            if (string.IsNullOrEmpty(user))
             {
-                lblMsg.Text = "Username and Password are required.";
+                lblMsg.Text = "Username/ID is required.";
                 return;
             }
 
-            if (_config.TryLogin(user, pass, out string message))
+            if (_config.TryLogin(user, out string message))
             {
                 // Buka MainWindow
                 var main = new MainWindow();
@@ -46,8 +81,8 @@ namespace LabelMatchingSvcPartAvalonia
             else
             {
                 lblMsg.Text = message;
-                txtPass.Text = "";
-                txtPass.Focus();
+                txtUser.SelectAll();
+                txtUser.Focus();
             }
         }
     }
